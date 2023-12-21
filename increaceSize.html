@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Increace size</title>
+</head>
+<body>
+    <button onclick="bigger()">+</button>
+    <button onclick="smaller()">-</button>
+   <div style="width: 100px;height:100px;background-color: blueviolet;">box</div>
+   <script>
+    // find the element
+function bigger(){
+let div=document.body.children[2]
+// console.log(div)
+
+// find the size
+let size= parseInt(div.style.width)
+size+=10
+div.style.width=size+"px"
+div.style.height=size+"px"
+console.log(size)
+    }
+
+
+function smaller(){
+let div=document.body.children[2]
+let size= parseInt(div.style.width)
+size-=10
+div.style.width=size+"px"
+div.style.height=size+"px"
+console.log(size)
+    }
+   </script>
+</body>
+</html>
