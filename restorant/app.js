@@ -26,24 +26,23 @@ let data={
 }
 
 // rendering//////////////////////////////////
-
+// input
 const renderMenuItem=(menuItem,parentElement,handler)=>{
     let label=document.createElement('label')
     let input=document.createElement('input')
+    // input.type="checkbox"
     input.setAttribute("type","checkbox")
     let labelText=document.createTextNode(
         `${menuItem.name} ${menuItem.price}`)
-    // input.type="checkbox"
     label.appendChild(input)
+
 // loose coupling
     input.addEventListener('change',handler)
-
-
 
     label.appendChild(labelText)
    parentElement.appendChild(label)
 }
-
+// fieldset
 const renderItemSet=(title)=>{
     let fieldset=document.createElement('fieldset')
     fieldset.className = 'scheduler-border'
@@ -54,29 +53,28 @@ const renderItemSet=(title)=>{
     return fieldset
 }
 
-
+// form
 const renderMenuForm=(rootElement,menu)=>{
 let form=document.createElement('form')
 let foodSet=renderItemSet('food')
 let drinkSet=renderItemSet('drinks')
-// 
-
-
 menu.food.forEach(foodData=>renderMenuItem(foodData,foodSet,toggleMenuItemHandler))
 menu.drinks.forEach(drinkData=>renderMenuItem(drinkData,drinkSet,toggleMenuItemHandler))  
-    
      form.appendChild(foodSet) 
      form.appendChild(drinkSet) 
     rootElement.appendChild(form)  
 }
-const renderMenuItemQuantity=()=>{
+// div under input
+const renderMenuItemQuantity=(decHandler,incHandler)=>{
     let div=document.createElement('div')
 let btnDec=document.createElement('button')
+btnDec.addEventListener('click',decHandler)
 btnDec.innerText="-"
 let inputQ=document.createElement('input')
 inputQ.value=1
 let btnInk=document.createElement('button')
-btnDec.innerText="+"
+btnInk.addEventListener('click',incHandler)
+btnInk.innerText="+"
 
 div.appendChild(btnDec)
 div.appendChild(inputQ)
@@ -89,11 +87,15 @@ return div
 const toggleMenuItemHandler=(event)=>{
 let toggledInput=event.target
 let label=toggledInput.parentElement
-let menuItemQuantity=renderMenuItemQuantity()
-label.after(menuItemQuantity)
+if(toggledInput.checked){
+let menuItemQuantity=renderMenuItemQuantity(decQuantityHandler,incQuantityHandler)
+label.after(menuItemQuantity)}
+else{label.parentElement.removeChild(label.nextElementSiblings)}
+
 }
 
-
+const incQuantityHandler=(event)=>{event.preventDefault()}
+const decQuantityHandler=(event)=>{event.preventDefault()}
 // ///////////////////////////
 
 const contentSection=document.getElementById("content")
